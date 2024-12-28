@@ -9,9 +9,11 @@ export default () => {
 		boolean: false,
 		color1: '#aa00ff',
 		color2: [ 1 / 3, 2 / 3, 1 ],
-		color3: { r: 2 / 3, g: 1, b: 1 / 3 },
-		color4: [ 0, 170, 255 ],
-		color5: { r: 10, g: 21, b: 34 },
+		color3: new Float32Array( [ 1 / 3, 2 / 3, 1 ] ),
+		color4: { r: 2 / 3, g: 1, b: 1 / 3 },
+		color5: [ 0, 170, 255 ],
+		color6: new Float32Array( [ 0, 170, 255 ] ),
+		color7: { r: 10, g: 21, b: 34 },
 		func: function() { },
 		number: 0,
 		options: 'a',
@@ -33,8 +35,10 @@ export default () => {
 	const color1Ctrl = gui.addColor( obj1, 'color1' );
 	const color2Ctrl = gui.addColor( obj1, 'color2' );
 	const color3Ctrl = gui.addColor( obj1, 'color3' );
-	const color4Ctrl = gui.addColor( obj1, 'color4', 255 );
+	const color4Ctrl = gui.addColor( obj1, 'color4' );
 	const color5Ctrl = gui.addColor( obj1, 'color5', 255 );
+	const color6Ctrl = gui.addColor( obj1, 'color6', 255 );
+	const color7Ctrl = gui.addColor( obj1, 'color7', 255 );
 	const numberCtrl = gui.add( obj1, 'number' );
 	const optionsCtrl = gui.add( obj1, 'options', [ 'a', 'b', 'c' ] );
 	const stringCtrl = gui.add( obj1, 'string' );
@@ -51,6 +55,8 @@ export default () => {
 	color3Ctrl._setValueFromHexString( '#219c3a' );
 	color4Ctrl._setValueFromHexString( '#0033aa' );
 	color5Ctrl._setValueFromHexString( '#88fac3' );
+	color6Ctrl._setValueFromHexString( '#12bb20' );
+	color7Ctrl._setValueFromHexString( '#1F1F1F' );
 	numberCtrl.setValue( 1 );
 	optionsCtrl.setValue( 'c' );
 	stringCtrl.setValue( 'bar' );
@@ -109,6 +115,8 @@ export default () => {
 			const val = obj[ key ];
 			if ( Array.isArray( val ) ) {
 				clone[ key ] = Array.from( val );
+			} else if ( ArrayBuffer.isView( val ) ) {
+				clone[ key ] = new val.constructor( val );
 			} else if ( typeof val !== 'function' && Object( val ) === val ) {
 				clone[ key ] = deepClone( val );
 			} else {
