@@ -7,17 +7,19 @@ export default () => {
 
 	const obj1 = {
 		boolean: false,
-		color1: '#aa00ff',
-		color2: [ 1 / 3, 2 / 3, 1 ],
-		color3: new Float32Array( [ 1 / 3, 2 / 3, 1 ] ),
-		color4: { r: 2 / 3, g: 1, b: 1 / 3 },
-		color5: [ 0, 170, 255 ],
-		color6: new Float32Array( [ 0, 170, 255 ] ),
-		color7: { r: 10, g: 21, b: 34 },
-		func: function() { },
 		number: 0,
 		options: 'a',
-		string: 'foo'
+		string: 'foo',
+		func: function() { },
+
+		colorHex: '#aa00ff',
+		colorArr: [ 1 / 3, 2 / 3, 1 ],
+		colorView: new Float32Array( [ 1 / 3, 2 / 3, 1 ] ),
+		colorObj: { r: 2 / 3, g: 1, b: 1 / 3 },
+
+		color255Arr: [ 0, 170, 255 ],
+		color255View: new Float32Array( [ 0, 170, 255 ] ),
+		color255Obj: { r: 10, g: 21, b: 34 }
 	};
 
 	const obj2 = {
@@ -31,17 +33,22 @@ export default () => {
 	const gui = new GUI();
 
 	// add every controller type to the gui
-	const booleanCtrl = gui.add( obj1, 'boolean' );
-	const color1Ctrl = gui.addColor( obj1, 'color1' );
-	const color2Ctrl = gui.addColor( obj1, 'color2' );
-	const color3Ctrl = gui.addColor( obj1, 'color3' );
-	const color4Ctrl = gui.addColor( obj1, 'color4' );
-	const color5Ctrl = gui.addColor( obj1, 'color5', 255 );
-	const color6Ctrl = gui.addColor( obj1, 'color6', 255 );
-	const color7Ctrl = gui.addColor( obj1, 'color7', 255 );
-	const numberCtrl = gui.add( obj1, 'number' );
-	const optionsCtrl = gui.add( obj1, 'options', [ 'a', 'b', 'c' ] );
-	const stringCtrl = gui.add( obj1, 'string' );
+	const ctrlBoolean = gui.add( obj1, 'boolean' );
+	const ctrlNumber = gui.add( obj1, 'number' );
+	const ctrlOptions = gui.add( obj1, 'options', [ 'a', 'b', 'c' ] );
+	const ctrlString = gui.add( obj1, 'string' );
+
+	const ctrlColorHex = gui.addColor( obj1, 'colorHex' );
+	const ctrlColorArr = gui.addColor( obj1, 'colorArr' );
+	const ctrlColorView = gui.addColor( obj1, 'colorView' );
+	const ctrlColorObj = gui.addColor( obj1, 'colorObj' );
+
+	const ctrlColor255Arr = gui.addColor( obj1, 'color255Arr', 255 );
+	const ctrlColor255View = gui.addColor( obj1, 'color255View', 255 );
+	const ctrlColor255Obj = gui.addColor( obj1, 'color255Obj', 255 );
+
+	// add a function to test that it doesn't get saved
+	gui.add( obj1, 'func' );
 
 	// and add some more to folders to test recursive
 	const folder = gui.addFolder( 'Folder' );
@@ -49,17 +56,17 @@ export default () => {
 	const folderNumber = folder.add( obj2, 'number' );
 
 	// change it via gui
-	booleanCtrl.setValue( true );
-	color1Ctrl._setValueFromHexString( '#0fac8f' );
-	color2Ctrl._setValueFromHexString( '#3fccea' );
-	color3Ctrl._setValueFromHexString( '#219c3a' );
-	color4Ctrl._setValueFromHexString( '#0033aa' );
-	color5Ctrl._setValueFromHexString( '#88fac3' );
-	color6Ctrl._setValueFromHexString( '#12bb20' );
-	color7Ctrl._setValueFromHexString( '#1F1F1F' );
-	numberCtrl.setValue( 1 );
-	optionsCtrl.setValue( 'c' );
-	stringCtrl.setValue( 'bar' );
+	ctrlBoolean.setValue( true );
+	ctrlColorHex._setValueFromHexString( '#0fac8f' );
+	ctrlColorArr._setValueFromHexString( '#3fccea' );
+	ctrlColorView._setValueFromHexString( '#219c3a' );
+	ctrlColorObj._setValueFromHexString( '#0033aa' );
+	ctrlColor255Arr._setValueFromHexString( '#88fac3' );
+	ctrlColor255View._setValueFromHexString( '#12bb20' );
+	ctrlColor255Obj._setValueFromHexString( '#1f1f1f' );
+	ctrlNumber.setValue( 1 );
+	ctrlOptions.setValue( 'c' );
+	ctrlString.setValue( 'bar' );
 
 	// also change some nested ones to test recursive
 	folderString.setValue( 'somethin' );

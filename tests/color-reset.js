@@ -19,7 +19,7 @@ export default () => {
 	ctrl2._setValueFromHexString( '#00f' );
 	ctrl2.reset();
 
-	assert.strictEqual( ctrl2.getValue(), colorView, 'reset color array retains reference' );
+	assert.strictEqual( ctrl2.getValue(), colorView, 'reset color view retains reference' );
 
 	const colorObj = { r: 0, g: 0.2, b: 0 };
 	const ctrl3 = gui.addColor( { colorObj }, 'colorObj' );
